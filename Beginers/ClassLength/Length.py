@@ -41,19 +41,34 @@ import pytest
 class Length(object):
     """Class that represents length. Constructor takes a number represents
     metres."""
-    
-    def __init__(self, theValue):
-        pass
-        
+
+    value = None
+    unit = None
+    conversion_dictionary = {'m' : {'m' : 1, 'mm' : 1000, 'feet' : 1, 'inch' : 1}}
+
+    def __init__(self, theValue, unit ='m'):
+        self.value = theValue
+        self.unit = unit
+
     def __str__(self):
-        pass
+        return 'Length: %0.3f (%s)' % (self.value, self.unit)
     
     def convert(self, uom):
-        """Returns the value in the specified units of measure."""
-        pass
+        if(not self.conversion_dictionary[self.unit].__contains__(uom)):
+            raise ExceptionLength(uom)
+
+        return self.conversion_dictionary[self.unit][uom] * self.value
+
     
     # Create the appropriate function to add two Length classes together
+    def __add__(self, other):
+        add_value = other if other is int else other.convert(self.unit)
+        return Length(self.value + add_value, self.unit)
 
+class ExceptionLength(Exception):
+
+    def __init__(self, uom):
+        self.message = 'Can not convert to: %s' % (uom)
 
 def test_convert():
     length = Length(12)
