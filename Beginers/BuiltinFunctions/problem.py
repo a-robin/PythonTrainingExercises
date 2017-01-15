@@ -2,8 +2,9 @@
 It might be useful to browse here (adjust your version to suit):
 https://docs.python.org/2.7/library/functions.html
 
-1. Create the sequence [0, 3, 6, 9, ... N]. What is the problem if N is very large?
-Is there a better way if N is very large?
+1. Create the sequence [0, 3, 6, 9, ... N].
+What is the problem if N is very large? Me : Time/space complexity
+Is there a better way if N is very large? Me : lazy instanciation ?
 
 2. Find the difference between the biggest and smallest values in the list
 [4, 3, -9, 21, 0]
@@ -47,30 +48,31 @@ import pytest
 def create_sequence(N):
     """Create the 3x table up to and including N."""
     # Your code here
-    pass
+    return [i for i in range(0, N +3, 3)]
 
 def range_of_list():
     """Return the difference between the largest and smallest values in a list."""
     x = [4, 3, -9, 21, 0]
-    # Your code here
+    return max(x) - min(x)
 
 def range_of_list_abs():
     """Return the difference between the largest and smallest absolute values in a list."""
     x = [4, 3, -9, 21, 0]
-    # Your code here
+    abs_x = map(abs, x)
+
+    return max(abs_x) - min(abs_x)
 
 def list_to_sequence_dict():
     """Create a dictionary where the key is the ordinal of the object in the list
     and the value is the object itself. For example: {0 : 'Zero', 1 : 'One', ...}"""
     x = ['Zero', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine']
-    d = {}
-    # Your code here
+    i = range(0, len(x))
+    d=dict(zip(i, x))
     return d
 
 def is_same(a, b):
     """Return True is the two items are the same."""
-    # Your code here
-    pass
+    return b is a
 
 #=========== Tests ===================
 def test_create_sequence():
