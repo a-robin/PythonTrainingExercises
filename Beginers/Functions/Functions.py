@@ -37,13 +37,11 @@ import pytest
 
 
 def _filter(fn, iterable):
-    # Your code here
-    pass
+    return [item for item in iterable if (fn is [None] and item) or fn(item)]
 
 
 def _map(fn, iterable):
-    # Your code here
-    pass
+    return [item if fn is [None] else fn(item) for item in iterable]
 
 
 def test_filter():
