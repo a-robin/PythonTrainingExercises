@@ -4,7 +4,12 @@ Write a program which returns 'Positive' 'Zero' or 'Negative' when given a numbe
 
 
 def what_sign(n):
-    pass
+    if n>0:
+        return 'Positive'
+    if n<0 :
+        return 'Negative'
+
+    return 'Zero'
 
 
 def test_what_sign():
@@ -20,7 +25,13 @@ For numbers which are multiples of both three and five print "FizzBuzz".
 """
 
 def fizzbuzz():
-    pass
+
+    for i in range(1, 100):
+        fizz = 'Fizz' if i %3 else ''
+        buzz = 'Buzz' if i%5 else ''
+
+        to_print = i if (fizz =='' and buzz =='') else '%s%s' % (fizz, buzz)
+        print to_print
 
 """
 Write a function which removes one or more indicies from a list.
@@ -34,7 +45,10 @@ the resulting list will be:
 """
 
 def remove_indices(mylist, idxs):
-    pass
+     for idx in idxs:
+         mylist.remove(idx)
+
+     return mylist
 
 def test_remove_indices():
     assert remove_indices(["John", "Bob", "Charles", "Trev"], [0]) == ["Bob", "Charles", "Trev"]
@@ -55,8 +69,10 @@ def open_connection():
 
 def connect(nretry=100):
     for _ in xrange(nretry):
-        # handle bad connection here...
-        if open_connection():
+        try:
+         if open_connection():
             return
+        except ValueError:
+            print 'Trying connection %i over %i retries' % (_, nretry)
 
 connect()
