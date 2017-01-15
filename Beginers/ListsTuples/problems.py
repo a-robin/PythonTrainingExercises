@@ -103,60 +103,61 @@ def create_list():
     a ='A'
     b ='B'
     c ='C'
-    # Your code goes here
+    return [a, b,c]
 
 def select_first_item():
     """Return first item."""
     x = ['A', 'B', 'C']
-    # Your code goes here
+    return x[0]
 
 def select_last_item():
     """Return first item."""
     x = ['A', 'B', 'C']
-    # Your code goes here
+    return x[len(x)-1]
 
 def select_reversed():
     """Return list reversed."""
     x = ['A', 'B', 'C']
-    # Your code goes here
+    return list(reversed(x))
 
 def select_first_items():
     """Select first item on each list."""
     x = [('A','x'), ('B','y'), ('C','z')]
-    # Your code goes here
+    return [i[0] for i in x]
 
 def add_5_to_values():
     """Return the list with 5 added to each value."""
     x = [1, 10, 20]
-    # Your code goes here
+    return [i +5 for i in x]
 
 def get_divisble_by_5():
     """Return elements that are divisble by 5."""
     x = [1, 10,  15, 3, 12, 15, 25, 50]
-    # Your code goes here
+    return filter(lambda x : x%5 == 0, x)
 
 def merge_lists():
     """Returns pairs from each list."""
     x = ['A', 'B', 'C']
     y = ['x', 'y', 'z']
-    # Your code goes here
+    return zip(x, y)
 
 def transpose(list_of_lists):
     """Transpose a list of lists."""
-    # Your code goes here
-    pass
+    return map(list,zip(*list_of_lists))
 
 def peak_to_peak(alist):
-    """Return the peak to peak value of a list."""
-    pass
+    return abs(max(alist) - min(alist))
+
 
 def rotate_left(alist):
     """Rotates a list to the left so that the first item appears at the end."""
-    pass
+    if len(alist) > 0:
+        alist.append(alist.pop(0))
 
 def rotate_right(alist):
     """Rotates a list to the right so that the last item appears at the beginning."""
-    pass
+    if len(alist)>0:
+        alist.insert(0, alist.pop())
 
 #=================== Tests ========================
 def test_create_list():
