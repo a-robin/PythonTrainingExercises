@@ -35,7 +35,7 @@ def main():
     # These will raise a SyntaxError
 #    parrot()                     # required argument missing
 #    parrot(voltage=5.0, 'dead')  # non-keyword argument following keyword
-    parrot(110, 'a', 'b', voltage=220)     # duplicate value for argument
+#   parrot(110, 'a', 'b', voltage=220)     # duplicate value for argument
 #    parrot(actor='John Cleese')  # unknown keyword
 
 if __name__ == '__main__':

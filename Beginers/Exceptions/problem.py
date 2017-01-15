@@ -33,7 +33,8 @@ import pytest
 
 #==== Exercise 1:
 def raise_if_not_length_four(value):
-    # Your code goes here
+    if len(value) !=4 :
+        raise ValueError('Argument must be length 4, not %i' % (len(value)))
     return value
 
 def test_raise_if_not_length_four():
@@ -47,7 +48,11 @@ def test_raise_if_not_length_four_raises_ValueError():
 
 #==== Exercise 2:
 def raise_if_not_four_characters(value):
-    # Your code goes here
+    if len(value) != 4:
+        raise ValueError('Argument must be length 4, not %i' % len(value))
+    if type(value) is not str:
+        raise TypeError("Argument must be a string, not %s" % (type(value)))
+
     return value
 
 def test_raise_if_not_four_characters():
@@ -88,18 +93,26 @@ def reset():
 #---- End of third party library code
 
 def get_data_one(network):
-    # Modify this function
     db = DataBase(network)
-    result = db.read()
-    db.close()
-    return result
+    try:
+        result = db.read()
+        return result
+    except IOError:
+        return ''
+    finally:
+        db.close()
 
 def get_data_two(network):
-    # Modify this function
     db = DataBase(network)
-    result = db.read()
-    db.close()
-    return result
+    try:
+        result = db.read()
+        return result
+    except IOError:
+        raise
+
+    finally:
+        db.close()
+
 
 def test_get_data_one_good_network():
     reset()
