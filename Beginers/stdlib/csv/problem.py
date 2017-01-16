@@ -4,8 +4,8 @@ in each subsequent row.
 
 A CSV file 'data.csv' is provided.
 
-Issues: What happens if the row is to long or two short?
-What happens with duplicate names in the first row.
+Issues: What happens if the row is too long or too short? => Me : Exception because of parse error
+What happens with duplicate names in the first row => Me : Exception because Headers must be unique
 
 Stretch: Convert the DoB strings to actual Python datetime.dates.
  
@@ -18,9 +18,17 @@ import csv
 import pytest
 
 def read_csv(file_name='data.csv'):
-    """Returns a list of dicts from a csv file."""
-    # Your code goes here
-    pass
+    dict_list = []
+    headers = ['DoB', 'Name', 'Ordinal']
+    with open(file_name, 'rb') as csvfile:
+        reader = csv.DictReader(csvfile)
+        for row in reader:
+            dict = {header : row[header] for header in headers}
+            dict_list.append(dict)
+
+    return dict_list
+
+
 
 def test_read_csv():
     expected = [

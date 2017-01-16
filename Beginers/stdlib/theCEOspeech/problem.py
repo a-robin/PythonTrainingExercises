@@ -59,18 +59,23 @@ INSERTS = ('for', 'with', 'and', 'as well as', 'by',
 def get_phrase():
     """Return a phrase by choosing words at random from each column of the PHRASE_TABLE."""
     # Your code goes here
-    pass
+    return "{0} {1} {2}".format(get_phrase_portion(0), get_phrase_portion(1), get_phrase_portion(2))
+
+def get_phrase_portion(index):
+    return PHRASE_TABLE[random.randint(0, len(PHRASE_TABLE)-1)][index]
 
 def get_insert():
     """Return a randomly chosen set of words to insert between phrases."""
     # Your code goes here
-    pass
+    return INSERTS[random.randint(0, len(INSERTS)-1)]
 
 def write_speech(n):
     """Write a speech with the opening words followed by n random phrases
     interspersed with random inserts."""
-    # Your code goes here
-    pass
+    print ' '.join(item for item in OPENING_WORDS)
+    text='\r\n'.join(["{0}{1}".format(get_phrase(), get_insert() if i != n-1 else '') for i in range(0, n)]) +"."
+
+    print textwrap.fill(text)
 
 if __name__ == '__main__':
     write_speech(40)

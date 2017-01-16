@@ -10,8 +10,15 @@ import datetime
 import pytest
 
 def business_days(start_date, num):
-    # Your code goes here
-    pass
+    weekdays_list =[]
+    i=0
+    while len(weekdays_list) != num:
+        potential_date = start_date + datetime.timedelta(days=i)
+        if potential_date.weekday() < 5:
+
+            weekdays_list.append(potential_date)
+        i +=1
+    return weekdays_list
 
 
 def test_business_days():
