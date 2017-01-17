@@ -22,19 +22,34 @@ import sys
 import pytest
 
 def gen_seq():
-    """Generates the infinite geometric series 1, 1/2, 1/4, 1/8, ..."""
-    pass
+    x = 1.0
+    while 1:
+        yield x
+        x *= 0.5
 
 
 def first_N(num):
-    """Use gen_seq() to generate the sum of the first num values of the series.""" 
-    pass
+
+    sum = 0
+    count = 0
+    for i in gen_seq():
+        if count >= num:
+            break
+
+        sum += i
+        count += 1
+
+    return sum
 
 
 def until_small(epsilon):
-    """Use gen_seq() to generate the sum of the series until a value smaller
-    than epsilon is encountered."""
-    pass
+    sum = 0
+    for i in gen_seq():
+        if i < epsilon:
+            break
+
+        sum += i
+    return sum
 
 
 def test_first_N():
