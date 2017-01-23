@@ -40,18 +40,22 @@ import collections
 
 class MarkovChain(object):
     def __init__(self):
-        pass
+        self.probs = collections.defaultdict(collections.Counter)
     
     def add(self, state_from, state_to):
         """This adds a single observed occurrence of a state change from/to
         and returns None"""
-        pass
-    
+        self.probs[state_from][state_to]+=1
+
     def probability_table(self, state_from):
         """Return a dict of {state_to : probability, ...}.
         Returns empty dict if state_from unknown."""
-        pass
+        if not self.probs.has_key(state_from):
+            return {}
+
+        all_occurences = sum(self.probs[state_from].values())
+        return {key:(value/all_occurences) for key, value in self.probs[state_from].elements()}
     
     def most_probable(self, state_from):
         """Returns a tuple of most probable next states."""
-        pass
+        return tuple([i[0] for i in self.probs[state_from].most_common()])
