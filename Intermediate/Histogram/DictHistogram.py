@@ -43,13 +43,19 @@ Created on 11 Mar 2015
 import pprint
 import random
 
+import pytest
+
 
 def float_list_to_int_dict(lst, bucket_size):
     """Takes a list of floats and a bucket size and return a dict of
     { n : count, ...} where the count is the number of floats that drop into
     the range (n - 0.5) * bucket_size to (n + 0.5) * bucket_size."""
-    # Your code goes here
-    pass
+    dict = {}
+    for value in lst:
+        bucket_index = int(round(value/ bucket_size, 0))
+        dict.__setitem__(bucket_index, 1 if not(dict.has_key(bucket_index)) else dict[bucket_index]+1)
+
+    return dict
 
 
 def pprint_histogram(d, bucket_size, char='+', width=80, key_format='%6.3f'):
@@ -73,8 +79,8 @@ def pformat_histogram(d, bucket_size, char='+', width=80, key_format='%6.3f'):
     key_format is used to turn the keys into strings.
     
     Returns a string."""
-    # Your code goes here
-    pass
+
+    return '\n'.join(["{key_format} {}".format(key, value) for key, value in d])
 
 
 def test_histogram_simple():
@@ -84,6 +90,14 @@ def test_histogram_simple():
     assert histogram == {-2: 1,
                          0: 2,
                          2: 2}
+
+def test_histogram_double():
+    values = [-2.0, -0.2, 0.0, 1.8, 2.0]
+    bucket_size = 3
+    histogram = float_list_to_int_dict(values, bucket_size)
+    assert histogram == {-1: 1,
+                         0: 2,
+                         1: 2}
 
 
 def test_histogram():
@@ -110,4 +124,5 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    # main()
+    pytest.main(__file__)

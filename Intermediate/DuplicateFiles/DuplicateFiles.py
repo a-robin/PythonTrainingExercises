@@ -5,7 +5,7 @@ path (as a string) and returns a list of lists of duplicate file paths.
 
 Example:
 
->>> duplicate_files('foo/bar')
+test_duplicate_files()
 [
     ['foo/bar/picture_1.jpg', 'foo/bar/picture_1_copy.jpg'],
     ['foo/bar/readme.txt', 'foo/bar/readme1.txt', 'foo/bar/readme2.txt'],
@@ -27,12 +27,27 @@ arguments.
 """
 import sys
 import pprint
-
+from itertools import groupby
+import pytest
 import mock
+import os
+import hashlib
+
+from collections import defaultdict
 
 
 def duplicate_files(path):
-    pass
+    path_by_hashed_content = defaultdict(list)
+    for root, dirs, files in os.walk(path):
+            for file in files:
+                path = os.path.join(root, file)
+                with open(path) as f:
+                    content = f.read()
+                    hashed_content =  hashlib.sha1(content).hexdigest
+                    path_by_hashed_content[content].append(path)
+
+    duplicates = [item for item in path_by_hashed_content.values() if len(item)>1]
+    return duplicates
 
 def test_duplicate_files():
     with mock.patch('os.walk') as mock_walk:
@@ -45,11 +60,12 @@ def test_duplicate_files():
             m_file = mock_open.return_value.__enter__.return_value
             m_file.read.side_effect = lambda: file_contents.pop(0)
             result = duplicate_files('path')
-            assert result == [['/foo/B', '/foo/C']]
+            assert result == [['/foo/bar/B', '/foo/bar/C']]
 
 
 def main():
     pprint.pprint(duplicate_files(sys.argv[1]))
 
 if __name__ == "__main__":
-    main()
+     # main()
+     test_duplicate_files()

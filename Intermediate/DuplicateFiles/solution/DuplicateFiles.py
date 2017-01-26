@@ -5,7 +5,7 @@ path (as a string) and returns a list of lists of duplicate file paths.
 
 Example:
 
->>> duplicate_files('foo/bar')
+>>> duplicate_files('foo/bar') # doesn't execute any test, tried to change it to : test_duplicate_files(), test gets executed but assert is not validated returning weird expectations
 [
     ['foo/bar/picture_1.jpg', 'foo/bar/picture_1_copy.jpg'],
     ['foo/bar/readme.txt', 'foo/bar/readme1.txt', 'foo/bar/readme2.txt'],
@@ -44,7 +44,7 @@ def duplicate_files(path):
             file_path = os.path.join(root, name)
             with open(file_path) as f:
                 contents = f.read()
-                hash_value = hashlib.sha1(contents).hexdigest()
+                hash_value = hashlib.sha1(contents).hexdigest() # the hash function here whether its sha1 or md5 doesn't return the same hashcode for B and C which makes the test fail, works with the actual string content
                 hash_dict[hash_value].append(file_path)
     return [v for v in hash_dict.values() if len(v) > 1]
 
