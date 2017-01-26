@@ -28,10 +28,17 @@ Created on 26 Feb 2015
 
 @author: paulross
 """
+import collections
 import random
 
 def randomWords(words, n):
-    pass
+    # return [''.join(word[:n], random.shuffle(word[n:])) for word in words]
+    final = []
+    for word in words:
+        to_shuffle= list(word[n:])
+        random.shuffle(to_shuffle)
+        final.append(word[:n]+''.join(to_shuffle))
+    return final
 
 def main():
     # Loop round until the user just gives a <cr> i.e. enter response.
