@@ -25,7 +25,11 @@ def raises(exception_cls):
         def wrap_func(*args, **kwargs):
             """Wrapping function with exception translation."""
             # Save and delete the following line and use it in your own code
-            fnIN(*args,**kwargs)
+            try:
+                return fnIN(*args,**kwargs)
+            except Exception as err:
+                raise exception_cls(str(err))
+
         return wrap_func 
     return wrap
 
